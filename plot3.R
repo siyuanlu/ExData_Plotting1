@@ -11,9 +11,19 @@ twoDayInput <- read.table("two_day_household_power_consumption.txt", sep = ",", 
 twoDayInput$newDate <- as.Date(twoDayInput$Date,"%d/%m/%Y");
 twoDayInput$DateTimeString <- paste(twoDayInput$newDate, twoDayInput$Time);
 twoDayInput$DateTime <- strptime(twoDayInput$DateTimeString, format = "%Y-%m-%d %H:%M:%S");
-plot(twoDayInput$DateTime, twoDayInput$Global_active_power, type = "n", xlab = "", ylab = "Global Active Power (kilowatts)");
-lines(twoDayInput$DateTime, twoDayInput$Global_active_power);
 
-#Save the drawing to plot3.png
-dev.copy(png,file = "plot2.png");
+#Generate plot3.png and save it
+with(twoDayInput,plot(DateTime, Sub_metering_1, type = "n", ylab = "Energy submetering", xlab = ""));
+with(twoDayInput,lines(DateTime, Sub_metering_1, col = "grey"));
+with(twoDayInput,lines(DateTime, Sub_metering_2, col = "red"));
+with(twoDayInput,lines(DateTime, Sub_metering_3, col = "blue"));
+legend("topright", lty = 1, lwd = 1, col = c("black", "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"));
+dev.copy(png,file = "plot3.png");
 dev.off();
+
+
+
+
+
+
+
